@@ -12,6 +12,10 @@
 * market. It displays historical market data (2022-2025), calculates 5-year 
 * projections, and provides an interactive tool for users to forcast market value.
 *********************************************
+* CONSTANTS:
+* + BOLD : String {static, final} -> ANSI code for bold text.
+* + RESET : String {static, final} -> ANSI code to reset text styling.
+*********************************************
 *	ALGORITHM:
 * 1. Initialize MarketAnalysis object with baseline growth rates and values.
 * 2. Preform background checks for object equality and default states.
@@ -37,10 +41,11 @@
 
 public class Main 
 {
+  public static final String BOLD = "\u001B[1m";
+  public static final String RESET = "\u001B[0m";
+
   public static void main(String[] args)
   {
-  String BOLD = "\u001B[1m";
-  String RESET = "\u001B[0m";
 
     MarketAnalysis vrProject = new MarketAnalysis("VR Market Growth", 0.25, 105.0);
     MarketAnalysis secondaryStudy = new MarketAnalysis();
