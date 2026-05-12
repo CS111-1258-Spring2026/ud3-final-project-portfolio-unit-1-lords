@@ -14,20 +14,22 @@
 *********************************************
 *	ALGORITHM:
 * 1. Initialize MarketAnalysis object with baseline growth rates and values.
-* 2. Display formatted headers and historical data to the console.
-* 3. Calculate and display the 2030 projected market value and user count.
-* 4. Prompt user if they wish to perform a custom year search.
-* 5. If 'yes', enter a loop:
-* a. Prompt user for a target year (validated 2020-4000).
-* b. Calculate the difference from the 2025 baseline.
-* c. Compute the forecast using the MarketAnalysis object.
-* d. If value >= 1000, convert to Trillions; otherwise, keep in Billions.
-* e. Print formatted result.
-* f. Ask user if they would like to search another year.
-* 6. If 'no', exit loop and display final closing message.
+* 2. Preform background checks for object equality and default states.
+* 3. Display formatted headers and historical data to the console.
+* 4. Calculate and display the 2030 projected market value and user count.
+* 5. Prompt user if they wish to perform a custom year search.
+* 6. If 'yes', enter a loop:
+*   a. Prompt user for a target year (validated 2020-4000).
+*   b. Calculate the difference from the 2025 baseline.
+*   c. Compute the forecast using the MarketAnalysis object.
+*   d. If value >= 1000, convert to Trillions; otherwise, keep in Billions.
+*   e. Print formatted result.
+*   f. Print BOLD for emphasis.
+*   g. Ask user if they would like to search another year.
+* 7. If 'no', exit loop and display final closing message.
 *********************************************
 *	STATIC METHODS:
-* <UML style list of static methods>
+* main(args : String[]) : void
 *********************************************
 *	ALL IMPORTED PACKAGES NEEDED AND PURPOSE:
 * UtilityBelt = used for console input and validation (integers and characters).
@@ -35,10 +37,16 @@
 
 public class Main 
 {
-
   public static void main(String[] args)
   {
+  String BOLD = "\u001B[1m";
+  String RESET = "\u001B[0m";
+
     MarketAnalysis vrProject = new MarketAnalysis("VR Market Growth", 0.25, 105.0);
+    MarketAnalysis secondaryStudy = new MarketAnalysis();
+    secondaryStudy.setAll("Test", 0.10, 50.00);
+
+    System.out.println("System Check: Comparison complete. Match = " + vrProject.equals(secondaryStudy));
 
     System.out.println("\n========================================");
     System.out.println(vrProject);
@@ -67,14 +75,14 @@ public class Main
         double customForecast = vrProject.calculateForecast(yearDiff);
 
         // If value is 1000 Billion or more, convert to Trillions.
-        if (customForecast >+ 1000.0){
+        if (customForecast >= 1000.0){
         double trillionValue = customForecast / 1000.0;
-        System.out.printf("\nIn the year %d, the potential market value is: $%,.2f Trillion\n",
+        System.out.printf("\nIn the year %d, the potential market value is: " + BOLD +  "$%,.2f Trillion" + RESET + "\n",
           targetYear,trillionValue);
           
         }
         else {
-          System.out.printf("\nIn the year %d, the potential market value is: $%,.2f Billion\n", targetYear, customForecast);
+          System.out.printf("\nIn the year %d, the potential market value is: " + BOLD + "$%,.2f Billion" + RESET + "\n", targetYear, customForecast);
         }
     
         choice = UtilityBelt.readChar("\nWould you like to chack another year? (y/n): ", "yYnN");
